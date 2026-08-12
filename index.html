@@ -203,14 +203,15 @@
 </div>
 
 <script>
-  const URL_SB = 'https://mkujttkcxzbzthkiyzov.supabase.co';
-  const KEY_SB = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rdWp0dGtjeHpienRoa2l5em92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NzA0MTMsImV4cCI6MjEwMjE0NjQxM30.luVjzDQM7NkYeimRROjZ6qvH5_h4ipWvTUYPNslmHbs';
-  const supabase = window.supabase.createClient(URL_SB, KEY_SB);
+  // Inicialização segura utilizando objeto global renomeado para evitar conflito de escopo
+  const SUPABASE_URL = 'https://mkujttkcxzbzthkiyzov.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rdWp0dGtjeHpienRoa2l5em92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NzA0MTMsImV4cCI6MjEwMjE0NjQxM30.luVjzDQM7NkYeimRROjZ6qvH5_h4ipWvTUYPNslmHbs';
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   let desvioAtualId = null;
 
   async function carregarDesvios(){
-    const { data, error } = await supabase.from('desvios').select('*').order('created_at', { ascending:false });
+    const { data, error } = await db.from('desvios').select('*').order('created_at', { ascending:false });
     if (error){ console.error(error); return; }
     renderTabela(data);
     renderKpis(data);
@@ -251,7 +252,7 @@
   }
 
   async function abrirDesvio(id){
-    const { data, error } = await supabase.from('desvios').select('*').eq('id', id).single();
+    const { data, error } = await db.from('desvios').select('*').eq('id', id).single();
     if (error){ console.error(error); return; }
     desvioAtualId = id;
     document.getElementById('modalTitulo').textContent = `Desvio ${data.numero}`;
@@ -306,8 +307,8 @@
     };
     if (!payload.motivo_desvio || !payload.prazo_acao){ alert('Preencha os campos obrigatórios.'); return; }
     let error;
-    if (desvioAtualId){ ({ error } = await supabase.from('desvios').update(payload).eq('id', desvioAtualId)); }
-    else { ({ error } = await supabase.from('desvios').insert(payload)); }
+    if (desvioAtualId){ ({ error } = await db.from('desvios').update(payload).eq('id', desvioAtualId)); }
+    else { ({ error } = await db.from('desvios').insert(payload)); }
     if (error){ alert('Erro: ' + error.message); return; }
     fecharModal(); carregarDesvios();
   }
@@ -318,7 +319,7 @@
     if (!nome){ alert('Informe o nome.'); return; }
     const payload = { [`aprov_${area}_status`]: status, [`aprov_${area}_nome`]: nome, [`aprov_${area}_data`]: new Date().toISOString() };
     if (area === 'engenharia' && status === 'Reprovado'){ payload.aprov_engenharia_razao_nao_aprovacao = document.getElementById('aprov_engenharia_razao').value; }
-    const { error } = await supabase.from('desvios').update(payload).eq('id', desvioAtualId);
+    const { error } = await db.from('desvios').update(payload).eq('id', desvioAtualId);
     if (error){ alert('Erro: ' + error.message); return; }
     abrirDesvio(desvioAtualId); carregarDesvios();
   }
