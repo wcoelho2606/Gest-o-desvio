@@ -11,6 +11,7 @@
     --amarelo-bg:#fff3cd; --amarelo-tx:#856404;
     --verde-bg:#d4edda; --verde-tx:#155724;
     --vermelho-bg:#f8d7da; --vermelho-tx:#721c24;
+    --azulcl-bg:#dbe9ff; --azulcl-tx:#1e3c72;
   }
   *{box-sizing:border-box;}
   body{font-family:'Segoe UI',sans-serif;background:var(--cinza-fundo);margin:0;padding:20px;color:var(--texto);}
@@ -24,8 +25,8 @@
   .btn-approve{background:#2ecc71;color:#fff;}
   .btn-reject{background:#e74c3c;color:#fff;}
   .btn-ghost{background:transparent;border:1px solid var(--borda);color:var(--texto);}
+  .btn-concluir{background:var(--azul);color:#fff;}
 
-  /* Identificação do usuário (sem login real) */
   .usuario-bar{background:#fff;border:1px solid var(--borda);border-radius:8px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:.9em;flex-wrap:wrap;}
   .usuario-bar strong{color:var(--azul);}
   .usuario-bar input{padding:6px 10px;border:1px solid var(--borda);border-radius:6px;font-size:.9em;}
@@ -37,15 +38,18 @@
   .card .value{font-size:26px;font-weight:bold;color:var(--texto);}
 
   table{width:100%;border-collapse:collapse;background:#fff;}
-  th,td{padding:12px;text-align:left;border-bottom:1px solid var(--borda);font-size:.9em;vertical-align:middle;}
-  th{background:#f8f9fa;color:var(--texto-sec);font-size:.78em;text-transform:uppercase;letter-spacing:.02em;}
+  th,td{padding:10px;text-align:left;border-bottom:1px solid var(--borda);font-size:.86em;vertical-align:middle;}
+  th{background:#f8f9fa;color:var(--texto-sec);font-size:.74em;text-transform:uppercase;letter-spacing:.02em;}
 
   .status-badge{padding:5px 10px;border-radius:12px;font-size:.8em;font-weight:bold;white-space:nowrap;display:inline-block;}
   .status-aprovado{background:var(--verde-bg);color:var(--verde-tx);}
   .status-reprovado{background:var(--vermelho-bg);color:var(--vermelho-tx);}
+  .status-vencido{background:var(--vermelho-bg);color:var(--vermelho-tx);}
+  .status-realizado{background:var(--azulcl-bg);color:var(--azulcl-tx);}
+  .status-aberto{background:#f1f2f4;color:#8a8f98;}
 
-  .mini-aprov-row{display:flex;gap:5px;flex-wrap:wrap;}
-  .mini-pill{font-size:.72em;font-weight:700;padding:3px 7px;border-radius:8px;white-space:nowrap;}
+  .mini-aprov-row{display:flex;gap:5px;flex-wrap:wrap;flex-direction:column;}
+  .mini-pill{font-size:.72em;font-weight:700;padding:3px 7px;border-radius:8px;white-space:nowrap;display:inline-block;}
   .mini-aprovado{background:var(--verde-bg);color:var(--verde-tx);}
   .mini-reprovado{background:var(--vermelho-bg);color:var(--vermelho-tx);}
   .mini-pendente{background:#f1f2f4;color:#8a8f98;}
@@ -58,8 +62,6 @@
   .acoes-cell{display:flex;gap:8px;}
   .icone-acao{cursor:pointer;font-size:1.15em;background:none;border:none;padding:4px 6px;border-radius:6px;line-height:1;}
   .icone-acao:hover{background:#f1f2f4;}
-  .icone-acao:disabled{opacity:.35;cursor:not-allowed;}
-  .icone-acao:disabled:hover{background:none;}
 
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,40,60,.55);z-index:100;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;}
   .modal-overlay.aberto{display:flex;}
@@ -68,7 +70,7 @@
   .modal-header h2{margin:0;font-size:1.15em;}
   .modal-header .fechar{cursor:pointer;font-size:1.4em;line-height:1;background:none;border:none;color:#fff;}
   .modal-body{padding:22px 24px;max-height:75vh;overflow-y:auto;}
-  .modal-footer{padding:16px 24px;border-top:1px solid var(--borda);display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .modal-footer{padding:16px 24px;border-top:1px solid var(--borda);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
   .modo-tag{font-size:.78em;font-weight:700;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.2);color:#fff;}
 
   fieldset{border:1px solid var(--borda);border-radius:8px;margin-bottom:16px;padding:14px 16px;}
@@ -76,7 +78,7 @@
   legend{padding:0 8px;font-weight:600;color:var(--azul);font-size:.9em;text-transform:uppercase;letter-spacing:.02em;}
   .campo{margin-bottom:12px;}
   .campo label{display:block;font-size:.85em;font-weight:600;color:var(--texto-sec);margin-bottom:4px;}
-  .campo input[type=text], .campo input[type=date], .campo textarea, .campo select{
+  .campo input[type=text], .campo input[type=password], .campo input[type=date], .campo textarea, .campo select{
     width:100%;padding:8px 10px;border:1px solid var(--borda);border-radius:6px;font-size:.92em;font-family:inherit;
   }
   .campo textarea{min-height:70px;resize:vertical;}
@@ -87,7 +89,10 @@
   .aprovacao-box{border:1px solid var(--borda);border-radius:8px;padding:12px 14px;margin-bottom:10px;}
   .aprovacao-box h4{margin:0 0 8px;font-size:.9em;color:var(--azul);}
   .aprovacao-linha{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .aprovacao-linha select, .aprovacao-linha input{flex:1;min-width:140px;padding:6px 8px;border:1px solid var(--borda);border-radius:6px;}
   .aprovacao-status-tag{font-size:.8em;font-weight:700;padding:3px 10px;border-radius:10px;}
+
+  .conclusao-box{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:#f8f9fa;border-radius:8px;padding:12px 14px;}
 
   .empty-state{text-align:center;padding:30px;color:var(--texto-sec);}
 </style>
@@ -103,7 +108,7 @@
   <span>👤 <strong>Você é:</strong></span>
   <input type="text" id="inputMeuNome" placeholder="Digite seu nome">
   <button class="btn btn-ghost" onclick="salvarMeuNome()" style="padding:6px 14px;">Confirmar</button>
-  <span class="aviso">Só quem abriu o desvio pode editá-lo. Os outros veem em modo leitura (👁️).</span>
+  <span class="aviso">Editar exige a senha definida na abertura do desvio.</span>
 </div>
 
 <div class="grid-container">
@@ -118,17 +123,16 @@
   <table>
     <thead>
       <tr>
-        <th>Nº</th><th>Produto/Processo</th><th>Código</th><th>Motivo</th>
-        <th>Prazo p/ Ação</th><th>Status</th><th>Ações</th>
+        <th>Nº</th><th>Produto/Processo</th><th>Código</th><th>Resp. Ação</th><th>Motivo</th>
+        <th>Prazo p/ Ação</th><th>Status</th><th>Aprovação</th><th>Ações</th>
       </tr>
     </thead>
     <tbody id="tabela-desvios">
-      <tr><td colspan="7" class="empty-state">Carregando...</td></tr>
+      <tr><td colspan="9" class="empty-state">Carregando...</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- ===================== MODAL: NOVO DESVIO / DETALHE ===================== -->
 <div class="modal-overlay" id="modalDesvio">
   <div class="modal">
     <div class="modal-header">
@@ -161,6 +165,16 @@
               <div class="campo">
                 <label>Código do Produto / Processo</label>
                 <input type="text" id="codigo_produto_processo">
+              </div>
+            </div>
+            <div class="linha">
+              <div class="campo">
+                <label>Responsável pelo Desvio</label>
+                <input type="text" id="responsavel_desvio" placeholder="Quem responde por este desvio">
+              </div>
+              <div class="campo" id="campoSenha">
+                <label>Senha de Edição * (guarde-a — só quem souber consegue editar depois)</label>
+                <input type="password" id="senha_edicao" placeholder="Crie uma senha">
               </div>
             </div>
           </fieldset>
@@ -201,6 +215,14 @@
               <input type="text" id="responsavel_acao">
             </div>
           </fieldset>
+
+          <fieldset id="fieldsetConclusao" style="display:none;">
+            <legend>Conclusão</legend>
+            <div class="conclusao-box">
+              <span id="txtRealizado">Ainda não foi marcado como realizado.</span>
+              <button type="button" class="btn btn-concluir" onclick="marcarRealizado()" id="btnRealizado">Marcar como Realizado</button>
+            </div>
+          </fieldset>
         </fieldset>
 
         <fieldset id="fieldsetAprovacoes" style="display:none;">
@@ -210,7 +232,7 @@
             <h4>Supervisor da Qualidade</h4>
             <div class="aprovacao-linha">
               <span id="tagQualidade" class="aprovacao-status-tag">Pendente</span>
-              <input type="text" id="aprov_qualidade_nome" placeholder="Nome do supervisor" style="flex:1;padding:6px 8px;border:1px solid var(--borda);border-radius:6px;">
+              <select id="aprov_qualidade_select" onchange="selecionarAprovador('qualidade', this.value)"></select>
               <button type="button" class="btn btn-approve" onclick="registrarAprovacao('qualidade','Aprovado')">Aprovar</button>
               <button type="button" class="btn btn-reject" onclick="registrarAprovacao('qualidade','Reprovado')">Reprovar</button>
             </div>
@@ -220,7 +242,7 @@
             <h4>Supervisor da Produção</h4>
             <div class="aprovacao-linha">
               <span id="tagProducao" class="aprovacao-status-tag">Pendente</span>
-              <input type="text" id="aprov_producao_nome" placeholder="Nome do supervisor" style="flex:1;padding:6px 8px;border:1px solid var(--borda);border-radius:6px;">
+              <select id="aprov_producao_select" onchange="selecionarAprovador('producao', this.value)"></select>
               <button type="button" class="btn btn-approve" onclick="registrarAprovacao('producao','Aprovado')">Aprovar</button>
               <button type="button" class="btn btn-reject" onclick="registrarAprovacao('producao','Reprovado')">Reprovar</button>
             </div>
@@ -230,7 +252,7 @@
             <h4>Engenharia</h4>
             <div class="aprovacao-linha">
               <span id="tagEngenharia" class="aprovacao-status-tag">Pendente</span>
-              <input type="text" id="aprov_engenharia_nome" placeholder="Nome do engenheiro" style="flex:1;padding:6px 8px;border:1px solid var(--borda);border-radius:6px;">
+              <select id="aprov_engenharia_select" onchange="selecionarAprovador('engenharia', this.value)"></select>
               <button type="button" class="btn btn-approve" onclick="registrarAprovacao('engenharia','Aprovado')">Aprovar</button>
               <button type="button" class="btn btn-reject" onclick="registrarAprovacao('engenharia','Reprovado')">Reprovar</button>
             </div>
@@ -243,7 +265,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <span class="aviso" id="avisoSomenteLeitura" style="display:none;color:#8a8f98;font-size:.85em;">Modo visualização — somente o requisitante pode editar.</span>
+      <span class="aviso" id="avisoSomenteLeitura" style="display:none;color:#8a8f98;font-size:.85em;">Modo visualização — informe a senha de edição para alterar.</span>
       <div style="display:flex;gap:10px;margin-left:auto;">
         <button class="btn btn-ghost" onclick="fecharModal()">Fechar</button>
         <button class="btn btn-success" id="btnSalvar" onclick="salvarDesvio()">Salvar Desvio</button>
@@ -253,26 +275,47 @@
 </div>
 
 <script>
-  // ===== Configuração Supabase =====
   const SUPABASE_URL = 'https://mkujttkcxzbzthkiyzov.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rdWp0dGtjeHpienRoa2l5em92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NzA0MTMsImV4cCI6MjEwMjE0NjQxM30.luVjzDQM7NkYeimRROjZ6qvH5_h4ipWvTUYPNslmHbs';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  const LISTA_APROVADORES = ['Fernanda Rocha', 'Diego Farias', 'Renata Alves', 'William', 'Erasmo', 'Luciana'];
+
   let desvioAtualId = null;
   let listaAtual = [];
+  let podeEditarAtual = false;
 
-  // ---------- Identificação simples do usuário (sem login) ----------
   function getMeuNome(){ return (localStorage.getItem('meuNome') || '').trim(); }
   function salvarMeuNome(){
     const nome = document.getElementById('inputMeuNome').value.trim();
     if (!nome){ alert('Digite seu nome.'); return; }
     localStorage.setItem('meuNome', nome);
     atualizarBarraUsuario();
-    carregarDesvios();
   }
   function atualizarBarraUsuario(){
-    const nome = getMeuNome();
-    document.getElementById('inputMeuNome').value = nome;
+    document.getElementById('inputMeuNome').value = getMeuNome();
+  }
+
+  function preencherSelectsAprovadores(){
+    ['qualidade','producao','engenharia'].forEach(area => {
+      const sel = document.getElementById(`aprov_${area}_select`);
+      sel.innerHTML = '<option value="">Selecionar aprovador...</option>' +
+        LISTA_APROVADORES.map(n => `<option value="${n}">${n}</option>`).join('') +
+        '<option value="__outro__">Outro (digitar nome)...</option>';
+    });
+  }
+  function selecionarAprovador(area, valor){
+    if (valor === '__outro__'){
+      const nome = prompt('Digite o nome do aprovador:');
+      if (nome) document.getElementById(`aprov_${area}_select`).dataset.nome = nome.trim();
+      else document.getElementById(`aprov_${area}_select`).value = '';
+    } else {
+      document.getElementById(`aprov_${area}_select`).dataset.nome = valor;
+    }
+  }
+  function nomeSelecionado(area){
+    const sel = document.getElementById(`aprov_${area}_select`);
+    return sel.dataset.nome || (sel.value && sel.value !== '__outro__' ? sel.value : '');
   }
 
   async function carregarDesvios(){
@@ -291,14 +334,19 @@
     document.getElementById('kpi-reprovados').textContent = contar('Reprovado');
   }
 
-  // ---------- Cor do prazo ----------
-  function classePrazo(d){
-    if (d.status === 'Aprovado' || d.status === 'Reprovado') return 'prazo-neutro';
+  function estaVencido(d){
+    if (d.realizado) return false;
     const hoje = new Date(); hoje.setHours(0,0,0,0);
     const prazo = d.prazo_acao ? new Date(d.prazo_acao + 'T00:00:00') : null;
+    return prazo && prazo < hoje;
+  }
+
+  function classePrazo(d){
+    if (d.realizado) return 'prazo-neutro';
+    if (estaVencido(d)) return 'prazo-vermelho';
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
     const abertura = d.data_abertura ? new Date(d.data_abertura + 'T00:00:00')
                      : (d.created_at ? new Date(d.created_at) : null);
-    if (prazo && prazo < hoje) return 'prazo-vermelho';
     if (abertura){
       const diasAberto = Math.floor((hoje - abertura) / 86400000);
       if (diasAberto > 3) return 'prazo-amarelo';
@@ -306,19 +354,25 @@
     return 'prazo-verde';
   }
 
-  // ---------- Status por aprovador ----------
-  function celulaStatus(d){
+  function celulaStatusGeral(d){
+    if (d.realizado) return `<span class="status-badge status-realizado">Realizado</span>`;
+    if (estaVencido(d)) return `<span class="status-badge status-vencido">Vencido</span>`;
     if (d.status === 'Aprovado') return `<span class="status-badge status-aprovado">Aprovado</span>`;
     if (d.status === 'Reprovado') return `<span class="status-badge status-reprovado">Reprovado</span>`;
+    return `<span class="status-badge status-aberto">${d.status || 'Aberto'}</span>`;
+  }
+
+  function celulaAprovacao(d){
     const areas = [
-      ['Qualidade', d.aprov_qualidade_status],
-      ['Produção', d.aprov_producao_status],
-      ['Engenharia', d.aprov_engenharia_status],
+      ['Qualidade', d.aprov_qualidade_status, d.aprov_qualidade_nome],
+      ['Produção', d.aprov_producao_status, d.aprov_producao_nome],
+      ['Engenharia', d.aprov_engenharia_status, d.aprov_engenharia_nome],
     ];
-    const pills = areas.map(([nome, st]) => {
+    const pills = areas.map(([nomeArea, st, nomeAprovador]) => {
       const status = st || 'Pendente';
       const classe = status === 'Aprovado' ? 'mini-aprovado' : status === 'Reprovado' ? 'mini-reprovado' : 'mini-pendente';
-      return `<span class="mini-pill ${classe}" title="${nome}: ${status}">${nome}: ${status}</span>`;
+      const quem = nomeAprovador ? ` — ${nomeAprovador}` : '';
+      return `<span class="mini-pill ${classe}">${nomeArea}: ${status}${quem}</span>`;
     }).join('');
     return `<div class="mini-aprov-row">${pills}</div>`;
   }
@@ -326,37 +380,39 @@
   function renderTabela(lista){
     const tbody = document.getElementById('tabela-desvios');
     if (!lista.length){
-      tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhum desvio cadastrado ainda.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" class="empty-state">Nenhum desvio cadastrado ainda.</td></tr>';
       return;
     }
-    const meuNome = getMeuNome().toLowerCase();
-    tbody.innerHTML = lista.map(d => {
-      const souEu = meuNome && (d.requisitante || '').trim().toLowerCase() === meuNome;
-      return `
+    tbody.innerHTML = lista.map(d => `
       <tr>
         <td>${d.numero ?? '-'}</td>
         <td>${d.nome_produto_processo ?? '-'}</td>
         <td>${d.codigo_produto_processo ?? '-'}</td>
-        <td>${(d.motivo_desvio ?? '').slice(0,35)}${(d.motivo_desvio ?? '').length > 35 ? '…' : ''}</td>
+        <td>${d.responsavel_acao ?? '-'}</td>
+        <td>${(d.motivo_desvio ?? '').slice(0,30)}${(d.motivo_desvio ?? '').length > 30 ? '…' : ''}</td>
         <td class="${classePrazo(d)}">${d.prazo_acao ?? '-'}</td>
-        <td>${celulaStatus(d)}</td>
+        <td>${celulaStatusGeral(d)}</td>
+        <td>${celulaAprovacao(d)}</td>
         <td class="acoes-cell">
           <button class="icone-acao" title="Visualizar" onclick="abrirDesvio('${d.id}', false)">👁️</button>
-          <button class="icone-acao" title="${souEu ? 'Editar' : 'Somente o requisitante pode editar'}" ${souEu ? '' : 'disabled'} onclick="abrirDesvio('${d.id}', true)">✏️</button>
+          <button class="icone-acao" title="Editar (pede senha)" onclick="abrirDesvio('${d.id}', true)">✏️</button>
         </td>
-      </tr>`;
-    }).join('');
+      </tr>`).join('');
   }
 
   function abrirModalNovoDesvio(){
     desvioAtualId = null;
+    podeEditarAtual = true;
     document.getElementById('formDesvio').reset();
     document.getElementById('modalTitulo').textContent = 'Abertura de Novo Desvio';
     document.getElementById('fieldsetAprovacoes').style.display = 'none';
+    document.getElementById('fieldsetConclusao').style.display = 'none';
     document.getElementById('camposDesvio').disabled = false;
+    document.getElementById('campoSenha').style.display = 'block';
     document.getElementById('btnSalvar').style.display = 'inline-block';
     document.getElementById('avisoSomenteLeitura').style.display = 'none';
     document.getElementById('modoTag').style.display = 'none';
+    preencherSelectsAprovadores();
     const meuNome = getMeuNome();
     if (meuNome) document.getElementById('requisitante').value = meuNome;
     document.getElementById('modalDesvio').classList.add('aberto');
@@ -367,19 +423,24 @@
     if (error){ console.error(error); return; }
     desvioAtualId = id;
 
-    const meuNome = getMeuNome().trim().toLowerCase();
-    const souRequisitante = meuNome && (data.requisitante || '').trim().toLowerCase() === meuNome;
-    const podeEditar = modoEdicao && souRequisitante;
-
-    if (modoEdicao && !souRequisitante){
-      alert('Somente o requisitante que abriu este desvio pode editá-lo. Abrindo em modo visualização.');
+    let podeEditar = false;
+    if (modoEdicao){
+      const senha = prompt('Digite a senha de edição deste desvio:');
+      if (senha === null) { /* cancelou */ }
+      else if ((senha || '').trim() === (data.senha_edicao || '')){
+        podeEditar = true;
+      } else {
+        alert('Senha incorreta. Abrindo em modo visualização.');
+      }
     }
+    podeEditarAtual = podeEditar;
 
     document.getElementById('modalTitulo').textContent = `Desvio ${data.numero}`;
     document.getElementById('departamento_solicitante').value = data.departamento_solicitante ?? '';
     document.getElementById('requisitante').value = data.requisitante ?? '';
     document.getElementById('nome_produto_processo').value = data.nome_produto_processo ?? '';
     document.getElementById('codigo_produto_processo').value = data.codigo_produto_processo ?? '';
+    document.getElementById('responsavel_desvio').value = data.responsavel_desvio ?? '';
     document.getElementById('motivo_desvio').value = data.motivo_desvio ?? '';
     document.getElementById('prazo_acao').value = data.prazo_acao ?? '';
     document.getElementById('acoes_evitar_reincidencia').value = data.acoes_evitar_reincidencia ?? '';
@@ -388,9 +449,18 @@
     ['aparencia','performance','operacao_mtg','mao_de_obra','custo_ferramenta','intercambialidade','preco_peca','item_controle_critico']
       .forEach(campo => document.getElementById('afeta_' + campo).checked = !!data['afeta_' + campo]);
 
-    document.getElementById('aprov_qualidade_nome').value = data.aprov_qualidade_nome ?? '';
-    document.getElementById('aprov_producao_nome').value = data.aprov_producao_nome ?? '';
-    document.getElementById('aprov_engenharia_nome').value = data.aprov_engenharia_nome ?? '';
+    document.getElementById('campoSenha').style.display = 'none';
+
+    preencherSelectsAprovadores();
+    ['qualidade','producao','engenharia'].forEach(area => {
+      const nomeAtual = data[`aprov_${area}_nome`];
+      const sel = document.getElementById(`aprov_${area}_select`);
+      if (nomeAtual){
+        const existeNaLista = LISTA_APROVADORES.includes(nomeAtual);
+        sel.value = existeNaLista ? nomeAtual : '__outro__';
+        sel.dataset.nome = nomeAtual;
+      }
+    });
     document.getElementById('aprov_engenharia_razao').value = data.aprov_engenharia_razao_nao_aprovacao ?? '';
 
     atualizarTagAprovacao('tagQualidade', data.aprov_qualidade_status);
@@ -398,8 +468,12 @@
     atualizarTagAprovacao('tagEngenharia', data.aprov_engenharia_status);
 
     document.getElementById('fieldsetAprovacoes').style.display = 'block';
+    document.getElementById('fieldsetConclusao').style.display = 'block';
+    document.getElementById('txtRealizado').textContent = data.realizado
+      ? `Realizado em ${ (data.realizado_data || '').slice(0,10) }`
+      : 'Ainda não foi marcado como realizado.';
+    document.getElementById('btnRealizado').disabled = !podeEditar || !!data.realizado;
 
-    // Trava os campos de conteúdo se não for o requisitante (aprovações continuam liberadas)
     document.getElementById('camposDesvio').disabled = !podeEditar;
     document.getElementById('btnSalvar').style.display = podeEditar ? 'inline-block' : 'none';
     document.getElementById('avisoSomenteLeitura').style.display = podeEditar ? 'none' : 'inline-block';
@@ -428,6 +502,7 @@
       requisitante: document.getElementById('requisitante').value,
       nome_produto_processo: document.getElementById('nome_produto_processo').value,
       codigo_produto_processo: document.getElementById('codigo_produto_processo').value,
+      responsavel_desvio: document.getElementById('responsavel_desvio').value,
       motivo_desvio: document.getElementById('motivo_desvio').value,
       prazo_acao: document.getElementById('prazo_acao').value || null,
       acoes_evitar_reincidencia: document.getElementById('acoes_evitar_reincidencia').value,
@@ -446,15 +521,14 @@
       alert('Preencha o Motivo do Desvio e o Prazo para Ação antes de salvar.');
       return;
     }
-    if (!payload.requisitante){
-      alert('Informe o Requisitante — é ele quem poderá editar este desvio depois.');
-      return;
-    }
 
     let error;
     if (desvioAtualId){
       ({ error } = await sb.from('desvios').update(payload).eq('id', desvioAtualId));
     } else {
+      const senha = document.getElementById('senha_edicao').value;
+      if (!senha){ alert('Crie uma senha de edição antes de salvar.'); return; }
+      payload.senha_edicao = senha;
       ({ error } = await sb.from('desvios').insert(payload));
     }
 
@@ -463,10 +537,22 @@
     carregarDesvios();
   }
 
+  async function marcarRealizado(){
+    if (!desvioAtualId || !podeEditarAtual) return;
+    const { error } = await sb.from('desvios').update({
+      realizado: true,
+      realizado_data: new Date().toISOString(),
+    }).eq('id', desvioAtualId);
+    if (error){ alert('Erro ao marcar como realizado: ' + error.message); return; }
+    document.getElementById('txtRealizado').textContent = 'Realizado agora mesmo.';
+    document.getElementById('btnRealizado').disabled = true;
+    carregarDesvios();
+  }
+
   async function registrarAprovacao(area, status){
     if (!desvioAtualId){ alert('Salve o desvio antes de registrar aprovações.'); return; }
-    const nome = document.getElementById(`aprov_${area}_nome`).value;
-    if (!nome){ alert('Informe o nome do responsável pela aprovação.'); return; }
+    const nome = nomeSelecionado(area);
+    if (!nome){ alert('Selecione o aprovador antes de aprovar/reprovar.'); return; }
 
     const payload = {
       [`aprov_${area}_status`]: status,
