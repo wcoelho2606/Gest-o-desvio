@@ -12,47 +12,57 @@
     --verde-bg:#d4edda; --verde-tx:#155724;
     --vermelho-bg:#f8d7da; --vermelho-tx:#721c24;
     --azulcl-bg:#dbe9ff; --azulcl-tx:#1e3c72;
+    --cinza-bg:#f1f2f4; --cinza-tx:#8a8f98;
   }
   *{box-sizing:border-box;}
   body{font-family:'Segoe UI',sans-serif;background:var(--cinza-fundo);margin:0;padding:20px;color:var(--texto);}
   .dashboard-header{background:linear-gradient(135deg,var(--azul),var(--azul-claro));color:#fff;padding:20px 24px;border-radius:8px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
   .dashboard-header h1{margin:0;font-size:1.4em;}
+  .header-btns{display:flex;gap:10px;flex-wrap:wrap;}
   .btn{border:none;border-radius:6px;padding:10px 18px;font-size:0.95em;font-weight:600;cursor:pointer;transition:opacity .15s;}
   .btn:hover{opacity:.9;}
   .btn:disabled{opacity:.5;cursor:not-allowed;}
   .btn-primary{background:#fff;color:var(--azul);}
+  .btn-outline-light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);}
   .btn-success{background:#2ecc71;color:#fff;}
   .btn-approve{background:#2ecc71;color:#fff;}
   .btn-reject{background:#e74c3c;color:#fff;}
   .btn-ghost{background:transparent;border:1px solid var(--borda);color:var(--texto);}
   .btn-concluir{background:var(--azul);color:#fff;}
+  .btn-excluir{background:#e74c3c;color:#fff;}
 
-  .usuario-bar{background:#fff;border:1px solid var(--borda);border-radius:8px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:.9em;flex-wrap:wrap;}
-  .usuario-bar strong{color:var(--azul);}
-  .usuario-bar input{padding:6px 10px;border:1px solid var(--borda);border-radius:6px;font-size:.9em;}
-  .usuario-bar .aviso{color:var(--texto-sec);font-size:.85em;}
+  .filtro-bar{background:#fff;border:1px solid var(--borda);border-radius:8px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:.9em;flex-wrap:wrap;}
+  .filtro-bar input, .filtro-bar select{padding:8px 10px;border:1px solid var(--borda);border-radius:6px;font-size:.9em;}
+  .filtro-bar input{flex:1;min-width:220px;}
 
   .grid-container{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:20px;}
   .card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.08);}
   .card h3{color:var(--texto-sec);margin-top:0;font-size:.85em;text-transform:uppercase;letter-spacing:.03em;}
   .card .value{font-size:26px;font-weight:bold;color:var(--texto);}
 
+  #painelIndicadores{margin-bottom:20px;}
+  .indic-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.88em;}
+  .indic-bar-label{width:110px;color:var(--texto-sec);}
+  .indic-bar-track{flex:1;background:#f1f2f4;border-radius:6px;height:14px;overflow:hidden;}
+  .indic-bar-fill{height:100%;border-radius:6px;}
+  .indic-bar-valor{width:24px;text-align:right;font-weight:700;}
+
   table{width:100%;border-collapse:collapse;background:#fff;}
-  th,td{padding:10px;text-align:left;border-bottom:1px solid var(--borda);font-size:.86em;vertical-align:middle;}
-  th{background:#f8f9fa;color:var(--texto-sec);font-size:.74em;text-transform:uppercase;letter-spacing:.02em;}
+  th,td{padding:10px;text-align:left;border-bottom:1px solid var(--borda);font-size:.85em;vertical-align:middle;}
+  th{background:#f8f9fa;color:var(--texto-sec);font-size:.72em;text-transform:uppercase;letter-spacing:.02em;}
 
   .status-badge{padding:5px 10px;border-radius:12px;font-size:.8em;font-weight:bold;white-space:nowrap;display:inline-block;}
-  .status-aprovado{background:var(--verde-bg);color:var(--verde-tx);}
+  .status-em-dia{background:var(--verde-bg);color:var(--verde-tx);}
   .status-reprovado{background:var(--vermelho-bg);color:var(--vermelho-tx);}
   .status-vencido{background:var(--vermelho-bg);color:var(--vermelho-tx);}
   .status-realizado{background:var(--azulcl-bg);color:var(--azulcl-tx);}
-  .status-aberto{background:#f1f2f4;color:#8a8f98;}
+  .status-aberto{background:var(--cinza-bg);color:var(--cinza-tx);}
 
   .mini-aprov-row{display:flex;gap:5px;flex-wrap:wrap;flex-direction:column;}
   .mini-pill{font-size:.72em;font-weight:700;padding:3px 7px;border-radius:8px;white-space:nowrap;display:inline-block;}
   .mini-aprovado{background:var(--verde-bg);color:var(--verde-tx);}
   .mini-reprovado{background:var(--vermelho-bg);color:var(--vermelho-tx);}
-  .mini-pendente{background:#f1f2f4;color:#8a8f98;}
+  .mini-pendente{background:var(--cinza-bg);color:var(--cinza-tx);}
 
   .prazo-verde{color:var(--verde-tx);font-weight:600;}
   .prazo-vermelho{color:var(--vermelho-tx);font-weight:700;}
@@ -65,7 +75,7 @@
 
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,40,60,.55);z-index:100;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;}
   .modal-overlay.aberto{display:flex;}
-  .modal{background:#fff;border-radius:10px;max-width:760px;width:100%;padding:0;box-shadow:0 10px 40px rgba(0,0,0,.25);}
+  .modal{background:#fff;border-radius:10px;max-width:780px;width:100%;padding:0;box-shadow:0 10px 40px rgba(0,0,0,.25);}
   .modal-header{background:var(--azul);color:#fff;padding:18px 24px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;}
   .modal-header h2{margin:0;font-size:1.15em;}
   .modal-header .fechar{cursor:pointer;font-size:1.4em;line-height:1;background:none;border:none;color:#fff;}
@@ -86,10 +96,9 @@
   .checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
   .checks label{display:flex;align-items:center;gap:6px;font-weight:400;color:var(--texto);font-size:.9em;}
 
-  .aprovacao-box{border:1px solid var(--borda);border-radius:8px;padding:12px 14px;margin-bottom:10px;}
-  .aprovacao-box h4{margin:0 0 8px;font-size:.9em;color:var(--azul);}
+  .aprovacao-box{border:1px solid var(--borda);border-radius:8px;padding:10px 14px;margin-bottom:8px;}
   .aprovacao-linha{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .aprovacao-linha select, .aprovacao-linha input{flex:1;min-width:140px;padding:6px 8px;border:1px solid var(--borda);border-radius:6px;}
+  .aprovacao-linha select{flex:1;min-width:140px;}
   .aprovacao-status-tag{font-size:.8em;font-weight:700;padding:3px 10px;border-radius:10px;}
 
   .conclusao-box{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:#f8f9fa;border-radius:8px;padding:12px 14px;}
@@ -101,15 +110,26 @@
 
 <div class="dashboard-header">
   <h1>QualityOps — Gestão de Desvios</h1>
-  <button class="btn btn-primary" onclick="abrirModalNovoDesvio()">+ Abertura de Novo Desvio</button>
+  <div class="header-btns">
+    <button class="btn btn-outline-light" onclick="toggleIndicadores()">📊 Indicadores</button>
+    <button class="btn btn-primary" onclick="abrirModalNovoDesvio()">+ Abertura de Novo Desvio</button>
+  </div>
 </div>
 
-<div class="usuario-bar">
-  <span>👤 <strong>Você é:</strong></span>
-  <input type="text" id="inputMeuNome" placeholder="Digite seu nome">
-  <button class="btn btn-ghost" onclick="salvarMeuNome()" style="padding:6px 14px;">Confirmar</button>
-  <span class="aviso">Editar exige a senha definida na abertura do desvio.</span>
+<div class="filtro-bar">
+  <input type="text" id="inputBusca" placeholder="🔎 Pesquisar por produto, código, motivo ou responsável..." oninput="aplicarFiltro()">
+  <select id="selectFiltroStatus" onchange="aplicarFiltro()">
+    <option value="">Todos os status</option>
+    <option>Aberto</option>
+    <option>Em Aprovação</option>
+    <option>Em Dia</option>
+    <option>Vencido</option>
+    <option>Reprovado</option>
+    <option>Realizado</option>
+  </select>
 </div>
+
+<div id="painelIndicadores" style="display:none;"></div>
 
 <div class="grid-container">
   <div class="card"><h3>Abertos</h3><div class="value" id="kpi-abertos">–</div></div>
@@ -123,12 +143,12 @@
   <table>
     <thead>
       <tr>
-        <th>Nº</th><th>Produto/Processo</th><th>Código</th><th>Resp. Ação</th><th>Motivo</th>
-        <th>Prazo p/ Ação</th><th>Status</th><th>Aprovação</th><th>Ações</th>
+        <th>Nº</th><th>Responsável Desvio</th><th>Produto/Processo</th><th>Código</th><th>Resp. Ação</th>
+        <th>Motivo</th><th>Prazo p/ Ação</th><th>Status</th><th>Aprovação</th><th>Ações</th>
       </tr>
     </thead>
     <tbody id="tabela-desvios">
-      <tr><td colspan="9" class="empty-state">Carregando...</td></tr>
+      <tr><td colspan="10" class="empty-state">Carregando...</td></tr>
     </tbody>
   </table>
 </div>
@@ -173,7 +193,7 @@
                 <input type="text" id="responsavel_desvio" placeholder="Quem responde por este desvio">
               </div>
               <div class="campo" id="campoSenha">
-                <label>Senha de Edição * (guarde-a — só quem souber consegue editar depois)</label>
+                <label>Senha de Edição * (guarde-a — só quem souber consegue editar/excluir depois)</label>
                 <input type="password" id="senha_edicao" placeholder="Crie uma senha">
               </div>
             </div>
@@ -225,46 +245,18 @@
           </fieldset>
         </fieldset>
 
-        <fieldset id="fieldsetAprovacoes" style="display:none;">
-          <legend>Aprovações</legend>
-
-          <div class="aprovacao-box">
-            <h4>Supervisor da Qualidade</h4>
-            <div class="aprovacao-linha">
-              <span id="tagQualidade" class="aprovacao-status-tag">Pendente</span>
-              <select id="aprov_qualidade_select" onchange="selecionarAprovador('qualidade', this.value)"></select>
-              <button type="button" class="btn btn-approve" onclick="registrarAprovacao('qualidade','Aprovado')">Aprovar</button>
-              <button type="button" class="btn btn-reject" onclick="registrarAprovacao('qualidade','Reprovado')">Reprovar</button>
-            </div>
-          </div>
-
-          <div class="aprovacao-box">
-            <h4>Supervisor da Produção</h4>
-            <div class="aprovacao-linha">
-              <span id="tagProducao" class="aprovacao-status-tag">Pendente</span>
-              <select id="aprov_producao_select" onchange="selecionarAprovador('producao', this.value)"></select>
-              <button type="button" class="btn btn-approve" onclick="registrarAprovacao('producao','Aprovado')">Aprovar</button>
-              <button type="button" class="btn btn-reject" onclick="registrarAprovacao('producao','Reprovado')">Reprovar</button>
-            </div>
-          </div>
-
-          <div class="aprovacao-box">
-            <h4>Engenharia</h4>
-            <div class="aprovacao-linha">
-              <span id="tagEngenharia" class="aprovacao-status-tag">Pendente</span>
-              <select id="aprov_engenharia_select" onchange="selecionarAprovador('engenharia', this.value)"></select>
-              <button type="button" class="btn btn-approve" onclick="registrarAprovacao('engenharia','Aprovado')">Aprovar</button>
-              <button type="button" class="btn btn-reject" onclick="registrarAprovacao('engenharia','Reprovado')">Reprovar</button>
-            </div>
-            <div class="campo" style="margin-top:8px;">
-              <label>Razão para não aprovação / instrução para incorporação (se reprovado)</label>
-              <input type="text" id="aprov_engenharia_razao">
-            </div>
+        <fieldset id="fieldsetAprovadores">
+          <legend>Aprovadores</legend>
+          <div id="listaAprovadoresModal"></div>
+          <div class="aprovacao-linha" style="margin-top:10px;">
+            <select id="selectNovoAprovador"></select>
+            <button type="button" class="btn btn-ghost" id="btnAddAprovador" onclick="adicionarAprovador()">+ Adicionar aprovador</button>
           </div>
         </fieldset>
       </form>
     </div>
     <div class="modal-footer">
+      <button class="btn btn-excluir" id="btnExcluir" style="display:none;" onclick="excluirDesvio()">🗑️ Excluir Desvio</button>
       <span class="aviso" id="avisoSomenteLeitura" style="display:none;color:#8a8f98;font-size:.85em;">Modo visualização — informe a senha de edição para alterar.</span>
       <div style="display:flex;gap:10px;margin-left:auto;">
         <button class="btn btn-ghost" onclick="fecharModal()">Fechar</button>
@@ -279,68 +271,41 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rdWp0dGtjeHpienRoa2l5em92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NzA0MTMsImV4cCI6MjEwMjE0NjQxM30.luVjzDQM7NkYeimRROjZ6qvH5_h4ipWvTUYPNslmHbs';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  // Lista de possíveis aprovadores — edite aqui conforme a equipe real.
   const LISTA_APROVADORES = ['Fernanda Rocha', 'Diego Farias', 'Renata Alves', 'William', 'Erasmo', 'Luciana'];
 
   let desvioAtualId = null;
   let listaAtual = [];
   let podeEditarAtual = false;
+  let realizadoAtual = false;
+  let aprovadoresModalAtual = []; // [{id, nome, status}]
 
-  function getMeuNome(){ return (localStorage.getItem('meuNome') || '').trim(); }
-  function salvarMeuNome(){
-    const nome = document.getElementById('inputMeuNome').value.trim();
-    if (!nome){ alert('Digite seu nome.'); return; }
-    localStorage.setItem('meuNome', nome);
-    atualizarBarraUsuario();
-  }
-  function atualizarBarraUsuario(){
-    document.getElementById('inputMeuNome').value = getMeuNome();
-  }
-
-  function preencherSelectsAprovadores(){
-    ['qualidade','producao','engenharia'].forEach(area => {
-      const sel = document.getElementById(`aprov_${area}_select`);
-      sel.innerHTML = '<option value="">Selecionar aprovador...</option>' +
-        LISTA_APROVADORES.map(n => `<option value="${n}">${n}</option>`).join('') +
-        '<option value="__outro__">Outro (digitar nome)...</option>';
-    });
-  }
-  function selecionarAprovador(area, valor){
-    if (valor === '__outro__'){
-      const nome = prompt('Digite o nome do aprovador:');
-      if (nome) document.getElementById(`aprov_${area}_select`).dataset.nome = nome.trim();
-      else document.getElementById(`aprov_${area}_select`).value = '';
-    } else {
-      document.getElementById(`aprov_${area}_select`).dataset.nome = valor;
-    }
-  }
-  function nomeSelecionado(area){
-    const sel = document.getElementById(`aprov_${area}_select`);
-    return sel.dataset.nome || (sel.value && sel.value !== '__outro__' ? sel.value : '');
-  }
-
-  async function carregarDesvios(){
-    const { data, error } = await sb.from('desvios').select('*').order('created_at', { ascending:false });
-    if (error){ console.error(error); return; }
-    listaAtual = data;
-    renderTabela(data);
-    renderKpis(data);
-  }
-
-  function renderKpis(lista){
-    const contar = s => lista.filter(d => d.status === s).length;
-    document.getElementById('kpi-abertos').textContent = contar('Aberto');
-    document.getElementById('kpi-em-aprovacao').textContent = contar('Em Aprovação');
-    document.getElementById('kpi-aprovados').textContent = contar('Aprovado');
-    document.getElementById('kpi-reprovados').textContent = contar('Reprovado');
-  }
-
+  // ---------- Status calculado (para badge, filtro e indicadores) ----------
   function estaVencido(d){
     if (d.realizado) return false;
     const hoje = new Date(); hoje.setHours(0,0,0,0);
     const prazo = d.prazo_acao ? new Date(d.prazo_acao + 'T00:00:00') : null;
     return prazo && prazo < hoje;
   }
-
+  function statusCalculado(d){
+    if (d.realizado) return 'Realizado';
+    if (estaVencido(d)) return 'Vencido';
+    if (d.status === 'Aprovado') return 'Em Dia';
+    if (d.status === 'Reprovado') return 'Reprovado';
+    return d.status || 'Aberto';
+  }
+  function classeStatus(s){
+    return {
+      'Realizado':'status-realizado', 'Vencido':'status-vencido',
+      'Em Dia':'status-em-dia', 'Reprovado':'status-reprovado',
+    }[s] || 'status-aberto';
+  }
+  function corIndicador(s){
+    return {
+      'Realizado':'#1e3c72', 'Vencido':'#e74c3c', 'Em Dia':'#2ecc71',
+      'Reprovado':'#e74c3c', 'Em Aprovação':'#f0ad4e',
+    }[s] || '#adb5bd';
+  }
   function classePrazo(d){
     if (d.realizado) return 'prazo-neutro';
     if (estaVencido(d)) return 'prazo-vermelho';
@@ -354,25 +319,88 @@
     return 'prazo-verde';
   }
 
-  function celulaStatusGeral(d){
-    if (d.realizado) return `<span class="status-badge status-realizado">Realizado</span>`;
-    if (estaVencido(d)) return `<span class="status-badge status-vencido">Vencido</span>`;
-    if (d.status === 'Aprovado') return `<span class="status-badge status-aprovado">Aprovado</span>`;
-    if (d.status === 'Reprovado') return `<span class="status-badge status-reprovado">Reprovado</span>`;
-    return `<span class="status-badge status-aberto">${d.status || 'Aberto'}</span>`;
+  // ---------- Carregamento ----------
+  async function carregarDesvios(){
+    const { data, error } = await sb.from('desvios')
+      .select('*, aprovadores_desvio(*)')
+      .order('created_at', { ascending:false });
+    if (error){ console.error(error); return; }
+    listaAtual = data;
+    renderKpis(listaAtual);
+    aplicarFiltro();
+    if (document.getElementById('painelIndicadores').style.display !== 'none'){
+      renderIndicadores(listaAtual);
+    }
   }
 
+  function renderKpis(lista){
+    const contar = s => lista.filter(d => d.status === s).length;
+    document.getElementById('kpi-abertos').textContent = contar('Aberto');
+    document.getElementById('kpi-em-aprovacao').textContent = contar('Em Aprovação');
+    document.getElementById('kpi-aprovados').textContent = contar('Aprovado');
+    document.getElementById('kpi-reprovados').textContent = contar('Reprovado');
+  }
+
+  // ---------- Filtro / busca ----------
+  function aplicarFiltro(){
+    const termo = document.getElementById('inputBusca').value.trim().toLowerCase();
+    const statusFiltro = document.getElementById('selectFiltroStatus').value;
+    const filtrada = listaAtual.filter(d => {
+      if (statusFiltro && statusCalculado(d) !== statusFiltro) return false;
+      if (!termo) return true;
+      const alvo = [d.nome_produto_processo, d.codigo_produto_processo, d.motivo_desvio, d.responsavel_desvio, d.responsavel_acao]
+        .filter(Boolean).join(' ').toLowerCase();
+      return alvo.includes(termo);
+    });
+    renderTabela(filtrada);
+  }
+
+  // ---------- Indicadores ----------
+  function toggleIndicadores(){
+    const el = document.getElementById('painelIndicadores');
+    const mostrar = el.style.display === 'none';
+    el.style.display = mostrar ? 'block' : 'none';
+    if (mostrar) renderIndicadores(listaAtual);
+  }
+  function renderIndicadores(lista){
+    const statuses = ['Aberto','Em Aprovação','Em Dia','Vencido','Reprovado','Realizado'];
+    const counts = {}; statuses.forEach(s => counts[s] = 0);
+    lista.forEach(d => { const s = statusCalculado(d); counts[s] = (counts[s]||0) + 1; });
+    const total = lista.length || 1;
+    const barsHtml = statuses.map(s => `
+      <div class="indic-bar-row">
+        <span class="indic-bar-label">${s}</span>
+        <div class="indic-bar-track"><div class="indic-bar-fill" style="width:${(counts[s]/total*100).toFixed(0)}%;background:${corIndicador(s)}"></div></div>
+        <span class="indic-bar-valor">${counts[s]}</span>
+      </div>`).join('');
+
+    const ranking = {};
+    lista.filter(d => statusCalculado(d) !== 'Realizado').forEach(d => {
+      const nome = d.responsavel_desvio || 'Não informado';
+      ranking[nome] = (ranking[nome] || 0) + 1;
+    });
+    const topRanking = Object.entries(ranking).sort((a,b) => b[1]-a[1]).slice(0,5);
+    const rankingHtml = topRanking.map(([nome,qtd]) => `<li>${nome} — ${qtd} desvio(s) em aberto</li>`).join('')
+      || '<li>Nenhum desvio em aberto.</li>';
+
+    document.getElementById('painelIndicadores').innerHTML = `
+      <div class="card" style="margin-bottom:14px;">
+        <h3>Distribuição por Status (${lista.length} desvios no total)</h3>
+        ${barsHtml}
+      </div>
+      <div class="card">
+        <h3>Responsáveis com mais desvios em aberto</h3>
+        <ul style="margin:6px 0 0 18px;padding:0;">${rankingHtml}</ul>
+      </div>`;
+  }
+
+  // ---------- Coluna Aprovação (tabela principal) ----------
   function celulaAprovacao(d){
-    const areas = [
-      ['Qualidade', d.aprov_qualidade_status, d.aprov_qualidade_nome],
-      ['Produção', d.aprov_producao_status, d.aprov_producao_nome],
-      ['Engenharia', d.aprov_engenharia_status, d.aprov_engenharia_nome],
-    ];
-    const pills = areas.map(([nomeArea, st, nomeAprovador]) => {
-      const status = st || 'Pendente';
-      const classe = status === 'Aprovado' ? 'mini-aprovado' : status === 'Reprovado' ? 'mini-reprovado' : 'mini-pendente';
-      const quem = nomeAprovador ? ` — ${nomeAprovador}` : '';
-      return `<span class="mini-pill ${classe}">${nomeArea}: ${status}${quem}</span>`;
+    const lista = d.aprovadores_desvio || [];
+    if (!lista.length) return `<span style="color:var(--texto-sec);font-size:.8em;">Nenhum designado</span>`;
+    const pills = lista.map(a => {
+      const classe = a.status === 'Aprovado' ? 'mini-aprovado' : a.status === 'Reprovado' ? 'mini-reprovado' : 'mini-pendente';
+      return `<span class="mini-pill ${classe}">${a.nome}: ${a.status}</span>`;
     }).join('');
     return `<div class="mini-aprov-row">${pills}</div>`;
   }
@@ -380,57 +408,149 @@
   function renderTabela(lista){
     const tbody = document.getElementById('tabela-desvios');
     if (!lista.length){
-      tbody.innerHTML = '<tr><td colspan="9" class="empty-state">Nenhum desvio cadastrado ainda.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="10" class="empty-state">Nenhum desvio encontrado.</td></tr>';
       return;
     }
-    tbody.innerHTML = lista.map(d => `
+    tbody.innerHTML = lista.map(d => {
+      const s = statusCalculado(d);
+      return `
       <tr>
         <td>${d.numero ?? '-'}</td>
+        <td>${d.responsavel_desvio ?? '-'}</td>
         <td>${d.nome_produto_processo ?? '-'}</td>
         <td>${d.codigo_produto_processo ?? '-'}</td>
         <td>${d.responsavel_acao ?? '-'}</td>
-        <td>${(d.motivo_desvio ?? '').slice(0,30)}${(d.motivo_desvio ?? '').length > 30 ? '…' : ''}</td>
+        <td>${(d.motivo_desvio ?? '').slice(0,28)}${(d.motivo_desvio ?? '').length > 28 ? '…' : ''}</td>
         <td class="${classePrazo(d)}">${d.prazo_acao ?? '-'}</td>
-        <td>${celulaStatusGeral(d)}</td>
+        <td><span class="status-badge ${classeStatus(s)}">${s}</span></td>
         <td>${celulaAprovacao(d)}</td>
         <td class="acoes-cell">
           <button class="icone-acao" title="Visualizar" onclick="abrirDesvio('${d.id}', false)">👁️</button>
           <button class="icone-acao" title="Editar (pede senha)" onclick="abrirDesvio('${d.id}', true)">✏️</button>
         </td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
   }
 
+  // ---------- Aprovadores no modal ----------
+  function preencherSelectNovoAprovador(){
+    const sel = document.getElementById('selectNovoAprovador');
+    sel.innerHTML = '<option value="">Selecionar pessoa...</option>' +
+      LISTA_APROVADORES.map(n => `<option value="${n}">${n}</option>`).join('') +
+      '<option value="__outro__">Outro (digitar nome)...</option>';
+  }
+  function nomeSelecionadoNovo(){
+    const sel = document.getElementById('selectNovoAprovador');
+    if (sel.value === '__outro__'){
+      const nome = prompt('Digite o nome do aprovador:');
+      return nome ? nome.trim() : '';
+    }
+    return sel.value;
+  }
+  function renderAprovadoresModal(){
+    const el = document.getElementById('listaAprovadoresModal');
+    if (!aprovadoresModalAtual.length){
+      el.innerHTML = `<p style="color:var(--texto-sec);font-size:.88em;">Nenhum aprovador designado ainda.</p>`;
+      return;
+    }
+    el.innerHTML = aprovadoresModalAtual.map((a, idx) => {
+      const cor = a.status === 'Aprovado' ? '#d4edda' : a.status === 'Reprovado' ? '#f8d7da' : '#fff3cd';
+      const txt = a.status === 'Aprovado' ? '#155724' : a.status === 'Reprovado' ? '#721c24' : '#856404';
+      const decidido = a.status !== 'Pendente';
+      return `
+      <div class="aprovacao-box">
+        <div class="aprovacao-linha">
+          <strong style="flex:1;">${a.nome}</strong>
+          <span class="aprovacao-status-tag" style="background:${cor};color:${txt};">${a.status}</span>
+          ${!decidido ? `
+            <button type="button" class="btn btn-approve" onclick="decidirAprovador(${idx},'Aprovado')">Aprovar</button>
+            <button type="button" class="btn btn-reject" onclick="decidirAprovador(${idx},'Reprovado')">Reprovar</button>
+            <button type="button" class="icone-acao" title="Remover" onclick="removerAprovador(${idx})">🗑️</button>
+          ` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function adicionarAprovador(){
+    const nome = nomeSelecionadoNovo();
+    if (!nome) return;
+    if (aprovadoresModalAtual.some(a => a.nome === nome)){
+      alert('Esse aprovador já está na lista.');
+      return;
+    }
+    const novoItem = { id:null, nome, status:'Pendente' };
+    if (desvioAtualId){
+      const { data, error } = await sb.from('aprovadores_desvio')
+        .insert({ desvio_id: desvioAtualId, nome }).select().single();
+      if (error){ alert('Erro ao adicionar aprovador: ' + error.message); return; }
+      novoItem.id = data.id;
+      carregarDesvios();
+    }
+    aprovadoresModalAtual.push(novoItem);
+    renderAprovadoresModal();
+    document.getElementById('selectNovoAprovador').value = '';
+  }
+
+  async function removerAprovador(idx){
+    const item = aprovadoresModalAtual[idx];
+    if (item.status !== 'Pendente'){ alert('Não é possível remover um aprovador que já decidiu.'); return; }
+    if (item.id){
+      const { error } = await sb.from('aprovadores_desvio').delete().eq('id', item.id);
+      if (error){ alert('Erro ao remover: ' + error.message); return; }
+      carregarDesvios();
+    }
+    aprovadoresModalAtual.splice(idx, 1);
+    renderAprovadoresModal();
+  }
+
+  async function decidirAprovador(idx, status){
+    if (!desvioAtualId){ alert('Salve o desvio antes de aprovar/reprovar.'); return; }
+    const item = aprovadoresModalAtual[idx];
+    const { error } = await sb.from('aprovadores_desvio')
+      .update({ status, data_decisao: new Date().toISOString() })
+      .eq('id', item.id);
+    if (error){ alert('Erro ao registrar decisão: ' + error.message); return; }
+    item.status = status;
+    renderAprovadoresModal();
+    carregarDesvios();
+  }
+
+  // ---------- Abrir / fechar modal ----------
   function abrirModalNovoDesvio(){
     desvioAtualId = null;
     podeEditarAtual = true;
+    realizadoAtual = false;
+    aprovadoresModalAtual = [];
     document.getElementById('formDesvio').reset();
     document.getElementById('modalTitulo').textContent = 'Abertura de Novo Desvio';
-    document.getElementById('fieldsetAprovacoes').style.display = 'none';
     document.getElementById('fieldsetConclusao').style.display = 'none';
     document.getElementById('camposDesvio').disabled = false;
     document.getElementById('campoSenha').style.display = 'block';
     document.getElementById('btnSalvar').style.display = 'inline-block';
+    document.getElementById('btnExcluir').style.display = 'none';
     document.getElementById('avisoSomenteLeitura').style.display = 'none';
     document.getElementById('modoTag').style.display = 'none';
-    preencherSelectsAprovadores();
-    const meuNome = getMeuNome();
-    if (meuNome) document.getElementById('requisitante').value = meuNome;
+    document.getElementById('btnAddAprovador').style.display = 'inline-block';
+    preencherSelectNovoAprovador();
+    renderAprovadoresModal();
     document.getElementById('modalDesvio').classList.add('aberto');
   }
 
   async function abrirDesvio(id, modoEdicao){
-    const { data, error } = await sb.from('desvios').select('*').eq('id', id).single();
+    const { data, error } = await sb.from('desvios')
+      .select('*, aprovadores_desvio(*)').eq('id', id).single();
     if (error){ console.error(error); return; }
     desvioAtualId = id;
+    realizadoAtual = !!data.realizado;
+    aprovadoresModalAtual = (data.aprovadores_desvio || []).map(a => ({...a}));
 
     let podeEditar = false;
     if (modoEdicao){
       const senha = prompt('Digite a senha de edição deste desvio:');
-      if (senha === null) { /* cancelou */ }
-      else if ((senha || '').trim() === (data.senha_edicao || '')){
-        podeEditar = true;
-      } else {
-        alert('Senha incorreta. Abrindo em modo visualização.');
+      if (senha !== null){
+        if ((senha || '').trim() === (data.senha_edicao || '')) podeEditar = true;
+        else alert('Senha incorreta. Abrindo em modo visualização.');
       }
     }
     podeEditarAtual = podeEditar;
@@ -451,32 +571,18 @@
 
     document.getElementById('campoSenha').style.display = 'none';
 
-    preencherSelectsAprovadores();
-    ['qualidade','producao','engenharia'].forEach(area => {
-      const nomeAtual = data[`aprov_${area}_nome`];
-      const sel = document.getElementById(`aprov_${area}_select`);
-      if (nomeAtual){
-        const existeNaLista = LISTA_APROVADORES.includes(nomeAtual);
-        sel.value = existeNaLista ? nomeAtual : '__outro__';
-        sel.dataset.nome = nomeAtual;
-      }
-    });
-    document.getElementById('aprov_engenharia_razao').value = data.aprov_engenharia_razao_nao_aprovacao ?? '';
+    preencherSelectNovoAprovador();
+    renderAprovadoresModal();
+    document.getElementById('btnAddAprovador').style.display = 'inline-block';
 
-    atualizarTagAprovacao('tagQualidade', data.aprov_qualidade_status);
-    atualizarTagAprovacao('tagProducao', data.aprov_producao_status);
-    atualizarTagAprovacao('tagEngenharia', data.aprov_engenharia_status);
-
-    document.getElementById('fieldsetAprovacoes').style.display = 'block';
     document.getElementById('fieldsetConclusao').style.display = 'block';
-    document.getElementById('txtRealizado').textContent = data.realizado
-      ? `Realizado em ${ (data.realizado_data || '').slice(0,10) }`
-      : 'Ainda não foi marcado como realizado.';
-    document.getElementById('btnRealizado').disabled = !podeEditar || !!data.realizado;
+    atualizarBotaoRealizado();
 
     document.getElementById('camposDesvio').disabled = !podeEditar;
     document.getElementById('btnSalvar').style.display = podeEditar ? 'inline-block' : 'none';
+    document.getElementById('btnExcluir').style.display = podeEditar ? 'inline-block' : 'none';
     document.getElementById('avisoSomenteLeitura').style.display = podeEditar ? 'none' : 'inline-block';
+    document.getElementById('btnRealizado').disabled = !podeEditar;
 
     const modoTag = document.getElementById('modoTag');
     modoTag.style.display = 'inline-block';
@@ -485,15 +591,33 @@
     document.getElementById('modalDesvio').classList.add('aberto');
   }
 
-  function atualizarTagAprovacao(elId, status){
-    const el = document.getElementById(elId);
-    el.textContent = status || 'Pendente';
-    el.style.background = status === 'Aprovado' ? '#d4edda' : status === 'Reprovado' ? '#f8d7da' : '#fff3cd';
-    el.style.color = status === 'Aprovado' ? '#155724' : status === 'Reprovado' ? '#721c24' : '#856404';
-  }
-
   function fecharModal(){
     document.getElementById('modalDesvio').classList.remove('aberto');
+  }
+
+  function atualizarBotaoRealizado(){
+    document.getElementById('txtRealizado').textContent = realizadoAtual ? 'Marcado como realizado.' : 'Ainda não foi marcado como realizado.';
+    document.getElementById('btnRealizado').textContent = realizadoAtual ? 'Desfazer Realizado' : 'Marcar como Realizado';
+  }
+
+  async function marcarRealizado(){
+    if (!desvioAtualId || !podeEditarAtual) return;
+    const novoValor = !realizadoAtual;
+    const payload = { realizado: novoValor, realizado_data: novoValor ? new Date().toISOString() : null };
+    const { error } = await sb.from('desvios').update(payload).eq('id', desvioAtualId);
+    if (error){ alert('Erro: ' + error.message); return; }
+    realizadoAtual = novoValor;
+    atualizarBotaoRealizado();
+    carregarDesvios();
+  }
+
+  async function excluirDesvio(){
+    if (!desvioAtualId || !podeEditarAtual) return;
+    if (!confirm('Tem certeza que deseja excluir este desvio? Essa ação não pode ser desfeita.')) return;
+    const { error } = await sb.from('desvios').delete().eq('id', desvioAtualId);
+    if (error){ alert('Erro ao excluir: ' + error.message); return; }
+    fecharModal();
+    carregarDesvios();
   }
 
   async function salvarDesvio(){
@@ -522,54 +646,27 @@
       return;
     }
 
-    let error;
     if (desvioAtualId){
-      ({ error } = await sb.from('desvios').update(payload).eq('id', desvioAtualId));
+      const { error } = await sb.from('desvios').update(payload).eq('id', desvioAtualId);
+      if (error){ alert('Erro ao salvar: ' + error.message); return; }
     } else {
       const senha = document.getElementById('senha_edicao').value;
       if (!senha){ alert('Crie uma senha de edição antes de salvar.'); return; }
       payload.senha_edicao = senha;
-      ({ error } = await sb.from('desvios').insert(payload));
+      const { data, error } = await sb.from('desvios').insert(payload).select().single();
+      if (error){ alert('Erro ao salvar: ' + error.message); return; }
+      desvioAtualId = data.id;
+      if (aprovadoresModalAtual.length){
+        const linhas = aprovadoresModalAtual.map(a => ({ desvio_id: desvioAtualId, nome: a.nome }));
+        const { error: errAprov } = await sb.from('aprovadores_desvio').insert(linhas);
+        if (errAprov) console.error('Erro ao salvar aprovadores:', errAprov);
+      }
     }
 
-    if (error){ alert('Erro ao salvar: ' + error.message); return; }
     fecharModal();
     carregarDesvios();
   }
 
-  async function marcarRealizado(){
-    if (!desvioAtualId || !podeEditarAtual) return;
-    const { error } = await sb.from('desvios').update({
-      realizado: true,
-      realizado_data: new Date().toISOString(),
-    }).eq('id', desvioAtualId);
-    if (error){ alert('Erro ao marcar como realizado: ' + error.message); return; }
-    document.getElementById('txtRealizado').textContent = 'Realizado agora mesmo.';
-    document.getElementById('btnRealizado').disabled = true;
-    carregarDesvios();
-  }
-
-  async function registrarAprovacao(area, status){
-    if (!desvioAtualId){ alert('Salve o desvio antes de registrar aprovações.'); return; }
-    const nome = nomeSelecionado(area);
-    if (!nome){ alert('Selecione o aprovador antes de aprovar/reprovar.'); return; }
-
-    const payload = {
-      [`aprov_${area}_status`]: status,
-      [`aprov_${area}_nome`]: nome,
-      [`aprov_${area}_data`]: new Date().toISOString(),
-    };
-    if (area === 'engenharia' && status === 'Reprovado'){
-      payload.aprov_engenharia_razao_nao_aprovacao = document.getElementById('aprov_engenharia_razao').value;
-    }
-
-    const { error } = await sb.from('desvios').update(payload).eq('id', desvioAtualId);
-    if (error){ alert('Erro ao registrar aprovação: ' + error.message); return; }
-    abrirDesvio(desvioAtualId, false);
-    carregarDesvios();
-  }
-
-  atualizarBarraUsuario();
   carregarDesvios();
 </script>
 </body>
